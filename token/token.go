@@ -12,7 +12,7 @@ const (
 	EOF     = "EOF"
 
 	// Identifiers & literals
-	IDENT = "IDENT" // add, foobar, x, y ...
+	IDENT = "IDENT" // user defined. add, foobar, x, y ...
 	INT   = "INT"   // 123456
 
 	// Operators
@@ -33,3 +33,17 @@ const (
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
 )
+
+var keywords = map[string]TokenType{
+	"fn":  FUNCTION,
+	"let": LET,
+}
+
+// LookupIdent checks if the given identifier is a language keyword or not.
+// If it is a keyword, the keyword's TokenType is returned. Otherwise IDENT is returned.
+func LookupIdent(ident string) TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
+}
